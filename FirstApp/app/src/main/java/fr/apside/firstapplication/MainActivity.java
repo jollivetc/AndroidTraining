@@ -1,8 +1,8 @@
 package fr.apside.firstapplication;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,13 +14,16 @@ import android.widget.Toast;
 public class MainActivity extends Activity {
 
     private final String TAG = getClass().getSimpleName();
+    private static final int RQ = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button button = (Button) findViewById(R.id.button);
+        Button button2 = (Button) findViewById(R.id.button2);
         button.setOnClickListener(getClickListener());
+        button2.setOnClickListener(getClickListenerForButton2());
         Log.i(TAG, "on create");
 
     }
@@ -29,13 +32,36 @@ public class MainActivity extends Activity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sayHello();
+                Toast.makeText(MainActivity.this, "HELLO", Toast.LENGTH_SHORT).show();
+
+                Intent i = new Intent(MainActivity.this, SecondActivity.class);
+                i.putExtra("name", "Durand");
+                i.putExtra("firstName", "Robert");
+                startActivity(i);
             }
         };
     }
 
-    private void sayHello() {
-        Toast.makeText(this, "HELLO", Toast.LENGTH_SHORT).show();
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RQ) {
+            String name = data.getStringExtra("name");
+            String firstname = data.getStringExtra("firstName");
+            Toast.makeText(this, name + " " + firstname, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private View.OnClickListener getClickListenerForButton2() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, SecondActivity.class);
+                i.putExtra("name", "Durand");
+                i.putExtra("firstName", "Robert");
+                startActivityForResult(i, RQ);
+            }
+        };
     }
 
     @Override
@@ -101,4 +127,6 @@ public class MainActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }

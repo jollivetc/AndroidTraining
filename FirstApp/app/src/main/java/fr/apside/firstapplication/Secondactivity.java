@@ -1,17 +1,40 @@
 package fr.apside.firstapplication;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 
-public class Secondactivity extends Activity {
+public class SecondActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_secondactivity);
+
+        Intent i = getIntent();
+        String name = i.getStringExtra("name");
+        String firstName = i.getStringExtra("firstName");
+
+        TextView v = (TextView) findViewById(R.id.name);
+        v.setText(name + " "+ firstName);
+
+        Button b = (Button) findViewById(R.id.btn_back);
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent();
+                i.putExtra("name", "Doe");
+                i.putExtra("firstName", "John");
+                setResult(RESULT_OK, i);
+                finish();
+            }
+        });
     }
 
 
