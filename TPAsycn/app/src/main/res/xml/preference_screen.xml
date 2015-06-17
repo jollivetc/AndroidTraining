@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory>
+        <CheckBoxPreference android:key="key_1" android:title="Le titre 1" android:summary="my summary 1"></CheckBoxPreference>
+    </PreferenceCategory>
+    <PreferenceCategory>
+        <SwitchPreference android:key="key_2" android:title="le title 2" android:summary="my summary 2"></SwitchPreference>
+    </PreferenceCategory>
+</PreferenceScreen>
